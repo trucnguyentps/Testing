@@ -54,7 +54,7 @@ stages:
             targetType: 'inline'
             workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
             script: 'checkov -d . -o junitxml > scan-result.xml'
-          continueOnError: true
+          continueOnError: false
            
         - task: PublishTestResults@2
           inputs:

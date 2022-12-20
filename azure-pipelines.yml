@@ -34,7 +34,7 @@ stages:
           displayName: 'Terraform init'
           inputs:
             command: 'init'
-            workingDirectory: $(System.DefaultWorkingDirectory)/basic
+            workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
             backendType: 'selfConfigured'
         - task: Bash@3
           displayName: Install pip
@@ -52,14 +52,14 @@ stages:
           displayName: Checkov source code scan  
           inputs:
             targetType: 'inline'
-            workingDirectory: $(System.DefaultWorkingDirectory)/basic
+            workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
             script: 'checkov -d . -o junitxml > scan-result.xml'
           continueOnError: true
            
         - task: PublishTestResults@2
           inputs:
             testResultsFormat: 'JUnit'
-            searchFolder: '$(System.DefaultWorkingDirectory)/basic'
+            searchFolder: '$(System.DefaultWorkingDirectory)/examples/basic'
             testResultsFiles: 'scan-result.xml'
             mergeTestResults: false
             testRunTitle: Checkov Dev workspace plan scan
@@ -70,5 +70,5 @@ stages:
           displayName: Checkov source code scan  
           inputs:
             targetType: 'inline'
-            workingDirectory: $(System.DefaultWorkingDirectory)/basic
+            workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
             script: 'ls'  

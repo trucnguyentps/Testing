@@ -57,5 +57,5 @@ stages:
           inputs:
             targetType: 'inline'
             workingDirectory: $(System.DefaultWorkingDirectory)
-            script: 'checkov -d . '
+            script: 'checkov -d . -o junitxml > scan-result.xml'
           continueOnError: true

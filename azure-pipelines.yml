@@ -1,20 +1,61 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
+  branches:
+    include:
+    - main
+    
 
-- main
+pr: none
 
-jobs:
-    - job: 'Build'
-      displayName: 'Build job'
+
+stages:
+- stage: TerraformJobDev_Init_Plan
+  displayName: Terraform Module - Init - Plan
+  jobs:
+    - job: TerraformJobDEV
+      displayName: Terraform - CI Job - DEV
       pool:
-        vmImage: windows-2019
+        vmImage: ubuntu-latest
       steps:
-        - task: PowerShell@2
+        - script: |
+                sudo apt install unzip
+                sudo apt install azure-cli -y
+                echo 'System.DefaultWorkingDirectory'
+                ls
+          name: setup_environment
+          displayName: 'Setup TF Environment'
+
+        - task: TerraformInstaller@0
+          displayName: install terraform
+          inputs:
+            terraformVersion: latest
+
+        - task: TerraformInstaller@0
+          displayName: 'Terraform init'
+          inputs:
+            command: 'init'
+            workingDirectory: $(System.DefaultWorkingDirectory)
+            backendType: 'selfConfigured'
+        - task: Bash@3
+          displayName: Install pip
+          inputs:
+           targetType: 'inline'
+           script: ' sudo apt install python2		-y '     
+                  
+        - task: Bash@3
+          displayName: Install checkov
+          inputs:
+           targetType: 'inline'
+           script: 'pip install checkov '
+        - task: Bash@3
+          displayName: Checkov source code scan  
           inputs:
             targetType: 'inline'
-            script: 'git clone https://github.com/Azure/Azure-Data-Factory-Integration-Runtime-in-Windows-Container.git'
-
+            workingDirectory: $(System.DefaultWorkingDirectory)
+            script: 'ls'           
+        - task: Bash@3
+          displayName: Checkov source code scan  
+          inputs:
+            targetType: 'inline'
+            workingDirectory: $(System.DefaultWorkingDirectory)
+            script: 'checkov -d . -o junitxml > scan-result.xml'
+          continueOnError: true

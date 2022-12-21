@@ -68,4 +68,4 @@ stages:
           inputs:  
             targetType: 'inline'
             script: 'terraform plan'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/examples/basic'
+            workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic

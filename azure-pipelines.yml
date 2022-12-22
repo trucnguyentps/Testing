@@ -28,7 +28,7 @@ stages:
           inputs:
             terraformVersion: latest
 
-        - task: TerraformInstaller@1
+        - task: TerraformTaskV1@0
           displayName: 'Terraform init'
           inputs:
             command: 'init'

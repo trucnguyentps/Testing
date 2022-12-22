@@ -23,7 +23,7 @@ stages:
           name: setup_environment
           displayName: 'Setup TF Environment'
 
-        - task: TerraformInstaller
+        - task: TerraformInstaller@0
           displayName: install terraform
           inputs:
             terraformVersion: latest

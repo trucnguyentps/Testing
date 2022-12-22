@@ -10,7 +10,7 @@ stages:
 - stage: TerraformJobDev_Init_Plan
   displayName: Terraform Module - Init - Plan
   jobs:
-    - job: TerraformJobDEV@0
+    - job: TerraformJobDEV
       displayName: Terraform - CI Job - DEV
       pool:
         vmImage: ubuntu-latest
@@ -23,12 +23,12 @@ stages:
           name: setup_environment
           displayName: 'Setup TF Environment'
 
-        - task: TerraformInstaller@0
+        - task: TerraformInstaller
           displayName: install terraform
           inputs:
             terraformVersion: latest
 
-        - task: TerraformInstaller@0
+        - task: TerraformInstaller
           displayName: 'Terraform init'
           inputs:
             command: 'init'

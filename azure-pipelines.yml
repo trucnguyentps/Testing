@@ -40,11 +40,6 @@ stages:
         #    targetType: 'inline'
         #    script: ' sudo apt install python2 -y ' 
         - task: Bash@3
-          displayName: Update
-          inputs:
-           targetType: 'inline'
-           script: 'sudo apt-get install --only-upgrade bash'
-        - task: Bash@3
           displayName: Install checkov
           inputs:
            targetType: 'inline'

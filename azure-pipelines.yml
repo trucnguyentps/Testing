@@ -50,7 +50,7 @@ stages:
           inputs:
             targetType: 'inline'
             workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
-            script: 'checkov -d . -o junitxml > scan-result.xml'
+            script: 'checkov -d . -o junitxml > scan-result.xml || true'
           # continueOnError: true
            
         - task: PublishTestResults@2

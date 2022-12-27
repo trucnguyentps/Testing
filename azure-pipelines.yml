@@ -32,7 +32,7 @@ stages:
           displayName: 'Terraform init'
           inputs:
             command: 'init'
-            workingDirectory: $(System.DefaultWorkingDirectory)/demo/examples/basic
+            workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
             backendType: 'selfConfigured'
         # - task: Bash@3
         #   displayName: Install pip
@@ -53,7 +53,7 @@ stages:
             script: 'checkov -d . '
           # continueOnError: true
          
-        - task: TerraformCLI@0
+        - task: TerraformInstaller@0
           displayName: 'Terraform plan'
           inputs:
             command: 'plan'

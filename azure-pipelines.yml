@@ -40,7 +40,7 @@ stages:
                 echo 'System.DefaultWorkingDirectory'
                 cd $(System.DefaultWorkingDirectory)/examples/basic
                 ls
-          name: setup_environment
+          name: setup_environment_1
           displayName: 'Setup TF Environment'
         # - task: Bash@3
         #   displayName: Install pip

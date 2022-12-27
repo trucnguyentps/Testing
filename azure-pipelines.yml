@@ -14,14 +14,15 @@ stages:
       displayName: Terraform - CI Job - DEV
       pool: pipeline
       steps:
-        # - script: |
-        #         sudo apt install unzip
-        #         sudo apt install azure-cli -y
-        #         echo 'System.DefaultWorkingDirectory'
-        #         ls
-        #         sudo apt update -y
-        #   name: setup_environment
-        #   displayName: 'Setup TF Environment'
+        - script: |
+                echo 'Default'
+                cd $(System.DefaultWorkingDirectory)
+                ls
+                echo 'Start'
+                cd $(System.DefaultWorkingDirectory)/examples/basic
+                ls
+          name: setup_environment
+          displayName: 'Setup TF Environment'
 
         # - task: TerraformInstaller@0
         #   displayName: install terraform
@@ -34,6 +35,13 @@ stages:
             command: 'init'
             workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
             backendType: 'selfConfigured'
+        
+        - script: |
+                echo 'System.DefaultWorkingDirectory'
+                cd $(System.DefaultWorkingDirectory)/examples/basic
+                ls
+          name: setup_environment
+          displayName: 'Setup TF Environment'
         # - task: Bash@3
         #   displayName: Install pip
         #   inputs:

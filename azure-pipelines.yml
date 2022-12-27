@@ -15,30 +15,30 @@ stages:
       pool:
         vmImage: ubuntu-latest
       steps:
-        - script: |
-                sudo apt install unzip
-                sudo apt install azure-cli -y
-                echo 'System.DefaultWorkingDirectory'
-                ls
-          name: setup_environment
-          displayName: 'Setup TF Environment'
+        # - script: |
+        #         sudo apt install unzip
+        #         sudo apt install azure-cli -y
+        #         echo 'System.DefaultWorkingDirectory'
+        #         ls
+        #   name: setup_environment
+        #   displayName: 'Setup TF Environment'
 
-        - task: TerraformInstaller@0
-          displayName: install terraform
-          inputs:
-            terraformVersion: latest
+        # - task: TerraformInstaller@0
+        #   displayName: install terraform
+        #   inputs:
+        #     terraformVersion: latest
 
-        - task: TerraformInstaller@0
-          displayName: 'Terraform init'
-          inputs:
-            command: 'init'
-            workingDirectory: $(System.DefaultWorkingDirectory)/demo/examples/basic
-            backendType: 'selfConfigured'
-        - task: Bash@3
-          displayName: Install pip
-          inputs:
-           targetType: 'inline'
-           script: ' sudo apt install python2 -y '     
+        # - task: TerraformInstaller@0
+        #   displayName: 'Terraform init'
+        #   inputs:
+        #     command: 'init'
+        #     workingDirectory: $(System.DefaultWorkingDirectory)/demo/examples/basic
+        #     backendType: 'selfConfigured'
+        # - task: Bash@3
+        #   displayName: Install pip
+        #   inputs:
+        #    targetType: 'inline'
+        #    script: ' sudo apt install python2 -y '     
                   
         - task: Bash@3
           displayName: Install checkov
@@ -52,7 +52,7 @@ stages:
             targetType: 'inline'
             workingDirectory: $(System.DefaultWorkingDirectory)/demo/examples/basic
             script: 'checkov -d . -o junitxml > scan-result.xml'
-          continueOnError: true
+          # continueOnError: true
            
         - task: PublishTestResults@2
           inputs:

@@ -50,16 +50,16 @@ stages:
           inputs:
             targetType: 'inline'
             workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
-            script: 'checkov -d . -o junitxml > scan-result.xml '
+            script: 'checkov -d . '
           # continueOnError: true
            
-        - task: PublishTestResults@2
-          inputs:
-            testResultsFormat: 'JUnit'
-            searchFolder: '$(System.DefaultWorkingDirectory)/examples/basic'
-            testResultsFiles: 'scan-result.xml'
-            mergeTestResults: false
-            testRunTitle: Checkov Dev workspace plan scan
-            failTaskOnFailedTests: false
-            publishRunAttachments: true
-          displayName: Publish Test Resul 
+        # - task: PublishTestResults@2
+        #   inputs:
+        #     testResultsFormat: 'JUnit'
+        #     searchFolder: '$(System.DefaultWorkingDirectory)/examples/basic'
+        #     testResultsFiles: 'scan-result.xml'
+        #     mergeTestResults: false
+        #     testRunTitle: Checkov Dev workspace plan scan
+        #     failTaskOnFailedTests: false
+        #     publishRunAttachments: true
+        #   displayName: Publish Test Resul 

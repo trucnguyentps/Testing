@@ -69,11 +69,13 @@ stages:
             commandOptions: '-input=false -out=$(System.DefaultWorkingDirectory)/examples/basic/terraform.tfplan -detailed-exitcode'
             publishPlanResults: 'terraform_plan_results'
             
-         - script: |
-                echo '3333'
-                cd $(System.DefaultWorkingDirectory)/examples/basic
-                ls -la
-                cat .terraform.tfstate.lock.info
+        - script: |
+              echo '3333'
+              cd $(System.DefaultWorkingDirectory)/examples/basic
+              ls -la
+              cat .terraform.tfstate.lock.info
+          name: setup_environment_2
+          displayName: 'Setup TF Environment'
            
         # - task: PublishTestResults@2
         #   inputs:

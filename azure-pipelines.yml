@@ -12,8 +12,7 @@ stages:
   jobs:
     - job: TerraformJobDEV
       displayName: Terraform - CI Job - DEV
-      pool:
-        vmImage: ubuntu-latest
+      pool: pipeline
       steps:
         # - script: |
         #         sudo apt install unzip

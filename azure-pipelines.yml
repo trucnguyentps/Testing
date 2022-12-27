@@ -43,7 +43,7 @@ stages:
           displayName: Update
           inputs:
            targetType: 'inline'
-           script: 'sudo apt update -y'
+           script: 'sudo apt-get install --only-upgrade bash'
         - task: Bash@3
           displayName: Install checkov
           inputs:

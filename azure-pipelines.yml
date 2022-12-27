@@ -17,10 +17,10 @@ stages:
         - script: |
                 echo 'Default'
                 cd $(System.DefaultWorkingDirectory)
-                ls
-                echo 'Start'
+                ls -la
+                echo 'Start 11111'
                 cd $(System.DefaultWorkingDirectory)/examples/basic
-                ls
+                ls -la
           name: setup_environment
           displayName: 'Setup TF Environment'
 
@@ -37,9 +37,9 @@ stages:
             backendType: 'selfConfigured'
         
         - script: |
-                echo 'System.DefaultWorkingDirectory'
+                echo '222222'
                 cd $(System.DefaultWorkingDirectory)/examples/basic
-                ls
+                ls -la
           name: setup_environment_1
           displayName: 'Setup TF Environment'
         # - task: Bash@3
@@ -68,6 +68,12 @@ stages:
             workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
             commandOptions: '-input=false -out=$(System.DefaultWorkingDirectory)/examples/basic/terraform.tfplan -detailed-exitcode'
             publishPlanResults: 'terraform_plan_results'
+            
+         - script: |
+                echo '3333'
+                cd $(System.DefaultWorkingDirectory)/examples/basic
+                ls -la
+                cat .terraform.tfstate.lock.info
            
         # - task: PublishTestResults@2
         #   inputs:

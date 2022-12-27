@@ -28,12 +28,12 @@ stages:
         #   inputs:
         #     terraformVersion: latest
 
-        # - task: TerraformInstaller@0
-        #   displayName: 'Terraform init'
-        #   inputs:
-        #     command: 'init'
-        #     workingDirectory: $(System.DefaultWorkingDirectory)/demo/examples/basic
-        #     backendType: 'selfConfigured'
+        - task: TerraformInstaller@0
+          displayName: 'Terraform init'
+          inputs:
+            command: 'init'
+            workingDirectory: $(System.DefaultWorkingDirectory)/demo/examples/basic
+            backendType: 'selfConfigured'
         # - task: Bash@3
         #   displayName: Install pip
         #   inputs:
@@ -52,6 +52,14 @@ stages:
             workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
             script: 'checkov -d . '
           # continueOnError: true
+         
+        - task: TerraformCLI@0
+          displayName: 'Terraform plan'
+          inputs:
+            command: 'plan'
+            workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
+            commandOptions: '-input=false -out=$(System.DefaultWorkingDirectory)/examples/basic/terraform.tfplan -detailed-exitcode'
+            publishPlanResults: 'terraform_plan_results'
            
         # - task: PublishTestResults@2
         #   inputs:

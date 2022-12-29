@@ -15,11 +15,11 @@ stages:
       displayName: Terraform - CI Job - DEV
       pool: pipelinetest
       steps:
-        - task: Bash@3
-          displayName: Install pip
-          inputs:
-           targetType: 'inline'
-           script: ' sudo apt install python2 -y '     
+        # - task: Bash@3
+        #   displayName: Install pip
+        #   inputs:
+        #    targetType: 'inline'
+        #    script: ' sudo apt install python2 -y '     
                   
         - task: Bash@3
           displayName: Install checkov

@@ -3,8 +3,8 @@ trigger:
     include:
     - main
     - Test-checkov
-
-pr: none
+pr:
+- main
 variables: 
   workingDirectory: '$(System.DefaultWorkingDirectory)/examples/basic'
 stages:

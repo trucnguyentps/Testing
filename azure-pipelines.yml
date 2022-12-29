@@ -13,8 +13,7 @@ stages:
   jobs:
     - job: TerraformJobDEV
       displayName: Terraform - CI Job - DEV
-      pool:
-        vmImage: ubuntu-latest
+      pool: pipelinetest
       steps:
         - task: Bash@3
           displayName: Install pip

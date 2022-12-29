@@ -2,43 +2,26 @@ trigger:
   branches:
     include:
     - main
-    - test-checkov
+    - Test-checkov
 
 pr: none
-
+variables: 
+  workingDirectory: '$(System.DefaultWorkingDirectory)/examples/basic'
 stages:
 - stage: TerraformJobDev_Init_Plan
   displayName: Terraform Module - Init - Plan
   jobs:
     - job: TerraformJobDEV
       displayName: Terraform - CI Job - DEV
-      pool: pipeline
+      pool:
+        vmImage: ubuntu-latest
       steps:
-        # - script: |
-        #         sudo apt install unzip
-        #         sudo apt install azure-cli -y
-        #         echo 'System.DefaultWorkingDirectory'
-        #         ls
-        #         sudo apt update -y
-        #   name: setup_environment
-        #   displayName: 'Setup TF Environment'
-
-        # - task: TerraformInstaller@0
-        #   displayName: install terraform
-        #   inputs:
-        #     terraformVersion: latest
-
-        # - task: TerraformInstaller@0
-        #   displayName: 'Terraform init'
-        #   inputs:
-        #     command: 'init'
-        #     workingDirectory: $(System.DefaultWorkingDirectory)/demo/examples/basic
-        #     backendType: 'selfConfigured'
-        # - task: Bash@3
-        #   displayName: Install pip
-        #   inputs:
-        #    targetType: 'inline'
-        #    script: ' sudo apt install python2 -y ' 
+        - task: Bash@3
+          displayName: Install pip
+          inputs:
+           targetType: 'inline'
+           script: ' sudo apt install python2 -y '     
+                  
         - task: Bash@3
           displayName: Install checkov
           inputs:
@@ -49,17 +32,17 @@ stages:
           displayName: Checkov source code scan  
           inputs:
             targetType: 'inline'
-            workingDirectory: $(System.DefaultWorkingDirectory)/examples/basic
-            script: 'checkov -d . -o junitxml > scan-result.xml || true'
+            workingDirectory: ${{ variables.workingDirectory }}
+            script: 'checkov -d . '
           # continueOnError: true
            
-        - task: PublishTestResults@2
-          inputs:
-            testResultsFormat: 'JUnit'
-            searchFolder: '$(System.DefaultWorkingDirectory)/examples/basic'
-            testResultsFiles: 'scan-result.xml'
-            mergeTestResults: false
-            testRunTitle: Checkov Dev workspace plan scan
-            failTaskOnFailedTests: false
-            publishRunAttachments: true
-          displayName: Publish Test Resul 
+        # - task: PublishTestResults@2
+        #   inputs:
+        #     testResultsFormat: 'JUnit'
+        #     searchFolder: '$(System.DefaultWorkingDirectory)'
+        #     testResultsFiles: 'scan-result.xml'
+        #     mergeTestResults: false
+        #     testRunTitle: Checkov Dev workspace plan scan
+        #     failTaskOnFailedTests: false
+        #     publishRunAttachments: true
+        #   displayName: Publish Test Resul 

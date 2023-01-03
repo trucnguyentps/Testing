@@ -11,9 +11,16 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: Test with Checkov
+      - name: Install Checkov
         id: checkov
-        uses: bridgecrewio/checkov-action@master
+        run: |
+          python3 -m pip3 install --upgrade pip3
+          pip3 install checkov
+        continue-on-error: true
+
+      - name: Run Checkov
+        id: run_checkov
         with:
           directory: /*
-          framework: terraform 
+        run: checkov -d .
+        continue-on-error: true

@@ -2,7 +2,7 @@ name: Checkov
 on: [pull_request]
 
 env:
-  Directory: examples/basic
+  Directory: s3/*
 jobs:
   build:
 

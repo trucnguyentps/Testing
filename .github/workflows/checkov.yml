@@ -2,7 +2,7 @@ name: Checkov
 on: [pull_request]
 
 env:
-  Directory: examples/
+  Directory: /s3
 jobs:
   build:
 
@@ -15,10 +15,10 @@ jobs:
           python-version: 3.8
       - name: Install checkov
         run: sudo pip install checkov   
+      - name: cd to directory
+        run: cd ${env.Directory}
       - name: Test with Checkov
         run: checkov -d .
-        with:
-          directory: ${{env.Directory}}
-          framework: terraform 
+
 
           

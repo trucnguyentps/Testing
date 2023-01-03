@@ -1,0 +1,25 @@
+name: Checkov
+on: [pull_request]
+
+env:
+  Directory: s3/
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install checkov
+        run: sudo pip install checkov   
+      - name: cd to directory
+        run: cd ${{env.Directory}}
+      - name: Test with Checkov
+        run: checkov -d .
+
+
+
+          

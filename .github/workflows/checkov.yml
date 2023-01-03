@@ -22,5 +22,6 @@ jobs:
         id: run_checkov
         with:
           directory: /*
-        run: checkov -d .
+        run: |
+          checkov -d .
         continue-on-error: true

@@ -1,5 +1,6 @@
 name: Checkov
-on: [push]
+on: [pull_request]
+
 env:
   Directory: examples/basic
 jobs:
